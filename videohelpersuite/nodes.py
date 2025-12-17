@@ -134,6 +134,12 @@ def ffmpeg_process(args, video_format, video_metadata, file_path, env):
     res = None
     frame_data = yield
     total_frames_output = 0
+
+    if 'prompt' in video_metadata:
+        video_metadata['prompt'] = None
+    if 'workflow' in video_metadata:
+        video_metadata['workflow'] = None
+
     if video_format.get('save_metadata', 'False') != 'False':
         os.makedirs(folder_paths.get_temp_directory(), exist_ok=True)
         metadata = json.dumps(video_metadata)
